@@ -15,3 +15,4 @@ abstract class AuthRepo {
   });
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
 }
+   
