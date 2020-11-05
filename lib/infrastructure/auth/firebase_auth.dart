@@ -1,12 +1,13 @@
 import 'package:chingu_blogapp/domain/auth/auth_failure.dart';
 import 'package:chingu_blogapp/domain/auth/auth_repo.dart';
-import 'package:chingu_blogapp/domain/core/errors.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chingu_blogapp/domain/auth/value_objects.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: AuthRepo)
 class FirebaseAuthFacade implements AuthRepo {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
