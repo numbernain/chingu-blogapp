@@ -1,11 +1,13 @@
 import 'package:chingu_blogapp/domain/auth/auth_failure.dart';
 import 'package:chingu_blogapp/domain/auth/auth_repo.dart';
+import 'package:chingu_blogapp/domain/auth/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chingu_blogapp/domain/auth/value_objects.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import './firebase_user_mapper.dart';
 
 @LazySingleton(as: AuthRepo)
 class FirebaseAuthFacade implements AuthRepo {
@@ -72,4 +74,15 @@ class FirebaseAuthFacade implements AuthRepo {
       return left(const AuthFailure.serverError());
     }
   }
+
+  @override
+  Future<Option<User>> getSignedInUser() => _firebaseAuth
+      .currentUser()
+      .then((firebaseUser) => optionOf(firebaseUser?.toDomain()));
+
+  @override
+  Future<void> signOut() => Future.wait([
+        _googleSignIn.signOut(),
+        _firebaseAuth.signOut(),
+      ]);
 }

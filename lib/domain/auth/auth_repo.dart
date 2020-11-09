@@ -1,3 +1,4 @@
+import 'package:chingu_blogapp/domain/auth/user.dart';
 import 'package:chingu_blogapp/domain/auth/value_objects.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -14,5 +15,6 @@ abstract class AuthRepo {
     @required Password password,
   });
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
+  Future<Option<User>> getSignedInUser();
+  Future<void> signOut();
 }
-   
