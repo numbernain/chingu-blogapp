@@ -1,5 +1,7 @@
 import 'failures.dart';
 
+class UnauthenticatedError extends Error {}
+
 class UnexpectedValueError extends Error {
   final ValueFailure valueFailure;
 
