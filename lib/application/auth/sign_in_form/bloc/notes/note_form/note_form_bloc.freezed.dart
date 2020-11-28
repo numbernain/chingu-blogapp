@@ -730,20 +730,47 @@ class _$NoteFormStateTearOff {
   const _$NoteFormStateTearOff();
 
 // ignore: unused_element
-  _NoteFormState call() {
-    return const _NoteFormState();
+  _NoteFormState call(
+      {@required NoteEntity note,
+      @required bool showErrorMsg,
+      @required bool isEditing,
+      @required bool isSaving,
+      @required Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption}) {
+    return _NoteFormState(
+      note: note,
+      showErrorMsg: showErrorMsg,
+      isEditing: isEditing,
+      isSaving: isSaving,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption,
+    );
   }
 }
 
 // ignore: unused_element
 const $NoteFormState = _$NoteFormStateTearOff();
 
-mixin _$NoteFormState {}
+mixin _$NoteFormState {
+  NoteEntity get note;
+  bool get showErrorMsg;
+  bool get isEditing;
+  bool get isSaving;
+  Option<Either<NoteFailure, Unit>> get saveFailureOrSuccessOption;
+
+  $NoteFormStateCopyWith<NoteFormState> get copyWith;
+}
 
 abstract class $NoteFormStateCopyWith<$Res> {
   factory $NoteFormStateCopyWith(
           NoteFormState value, $Res Function(NoteFormState) then) =
       _$NoteFormStateCopyWithImpl<$Res>;
+  $Res call(
+      {NoteEntity note,
+      bool showErrorMsg,
+      bool isEditing,
+      bool isSaving,
+      Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption});
+
+  $NoteEntityCopyWith<$Res> get note;
 }
 
 class _$NoteFormStateCopyWithImpl<$Res>
@@ -753,12 +780,53 @@ class _$NoteFormStateCopyWithImpl<$Res>
   final NoteFormState _value;
   // ignore: unused_field
   final $Res Function(NoteFormState) _then;
+
+  @override
+  $Res call({
+    Object note = freezed,
+    Object showErrorMsg = freezed,
+    Object isEditing = freezed,
+    Object isSaving = freezed,
+    Object saveFailureOrSuccessOption = freezed,
+  }) {
+    return _then(_value.copyWith(
+      note: note == freezed ? _value.note : note as NoteEntity,
+      showErrorMsg:
+          showErrorMsg == freezed ? _value.showErrorMsg : showErrorMsg as bool,
+      isEditing: isEditing == freezed ? _value.isEditing : isEditing as bool,
+      isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
+          ? _value.saveFailureOrSuccessOption
+          : saveFailureOrSuccessOption as Option<Either<NoteFailure, Unit>>,
+    ));
+  }
+
+  @override
+  $NoteEntityCopyWith<$Res> get note {
+    if (_value.note == null) {
+      return null;
+    }
+    return $NoteEntityCopyWith<$Res>(_value.note, (value) {
+      return _then(_value.copyWith(note: value));
+    });
+  }
 }
 
-abstract class _$NoteFormStateCopyWith<$Res> {
+abstract class _$NoteFormStateCopyWith<$Res>
+    implements $NoteFormStateCopyWith<$Res> {
   factory _$NoteFormStateCopyWith(
           _NoteFormState value, $Res Function(_NoteFormState) then) =
       __$NoteFormStateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {NoteEntity note,
+      bool showErrorMsg,
+      bool isEditing,
+      bool isSaving,
+      Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption});
+
+  @override
+  $NoteEntityCopyWith<$Res> get note;
 }
 
 class __$NoteFormStateCopyWithImpl<$Res>
@@ -770,25 +838,117 @@ class __$NoteFormStateCopyWithImpl<$Res>
 
   @override
   _NoteFormState get _value => super._value as _NoteFormState;
+
+  @override
+  $Res call({
+    Object note = freezed,
+    Object showErrorMsg = freezed,
+    Object isEditing = freezed,
+    Object isSaving = freezed,
+    Object saveFailureOrSuccessOption = freezed,
+  }) {
+    return _then(_NoteFormState(
+      note: note == freezed ? _value.note : note as NoteEntity,
+      showErrorMsg:
+          showErrorMsg == freezed ? _value.showErrorMsg : showErrorMsg as bool,
+      isEditing: isEditing == freezed ? _value.isEditing : isEditing as bool,
+      isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
+          ? _value.saveFailureOrSuccessOption
+          : saveFailureOrSuccessOption as Option<Either<NoteFailure, Unit>>,
+    ));
+  }
 }
 
 class _$_NoteFormState implements _NoteFormState {
-  const _$_NoteFormState();
+  const _$_NoteFormState(
+      {@required this.note,
+      @required this.showErrorMsg,
+      @required this.isEditing,
+      @required this.isSaving,
+      @required this.saveFailureOrSuccessOption})
+      : assert(note != null),
+        assert(showErrorMsg != null),
+        assert(isEditing != null),
+        assert(isSaving != null),
+        assert(saveFailureOrSuccessOption != null);
+
+  @override
+  final NoteEntity note;
+  @override
+  final bool showErrorMsg;
+  @override
+  final bool isEditing;
+  @override
+  final bool isSaving;
+  @override
+  final Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'NoteFormState()';
+    return 'NoteFormState(note: $note, showErrorMsg: $showErrorMsg, isEditing: $isEditing, isSaving: $isSaving, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _NoteFormState);
+    return identical(this, other) ||
+        (other is _NoteFormState &&
+            (identical(other.note, note) ||
+                const DeepCollectionEquality().equals(other.note, note)) &&
+            (identical(other.showErrorMsg, showErrorMsg) ||
+                const DeepCollectionEquality()
+                    .equals(other.showErrorMsg, showErrorMsg)) &&
+            (identical(other.isEditing, isEditing) ||
+                const DeepCollectionEquality()
+                    .equals(other.isEditing, isEditing)) &&
+            (identical(other.isSaving, isSaving) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSaving, isSaving)) &&
+            (identical(other.saveFailureOrSuccessOption,
+                    saveFailureOrSuccessOption) ||
+                const DeepCollectionEquality().equals(
+                    other.saveFailureOrSuccessOption,
+                    saveFailureOrSuccessOption)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(note) ^
+      const DeepCollectionEquality().hash(showErrorMsg) ^
+      const DeepCollectionEquality().hash(isEditing) ^
+      const DeepCollectionEquality().hash(isSaving) ^
+      const DeepCollectionEquality().hash(saveFailureOrSuccessOption);
+
+  @override
+  _$NoteFormStateCopyWith<_NoteFormState> get copyWith =>
+      __$NoteFormStateCopyWithImpl<_NoteFormState>(this, _$identity);
 }
 
 abstract class _NoteFormState implements NoteFormState {
-  const factory _NoteFormState() = _$_NoteFormState;
+  const factory _NoteFormState(
+          {@required
+              NoteEntity note,
+          @required
+              bool showErrorMsg,
+          @required
+              bool isEditing,
+          @required
+              bool isSaving,
+          @required
+              Option<Either<NoteFailure, Unit>> saveFailureOrSuccessOption}) =
+      _$_NoteFormState;
+
+  @override
+  NoteEntity get note;
+  @override
+  bool get showErrorMsg;
+  @override
+  bool get isEditing;
+  @override
+  bool get isSaving;
+  @override
+  Option<Either<NoteFailure, Unit>> get saveFailureOrSuccessOption;
+  @override
+  _$NoteFormStateCopyWith<_NoteFormState> get copyWith;
 }

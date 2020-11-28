@@ -15,6 +15,7 @@ import 'domain/auth/auth_repo.dart';
 import 'infrastructure/auth/firebase_auth.dart';
 import 'infrastructure/core/firebase_injectable_module.dart';
 import 'application/auth/sign_in_form/bloc/notes/note_actor/note_actor_bloc.dart';
+import 'application/auth/sign_in_form/bloc/notes/note_form/note_form_bloc.dart';
 import 'domain/notes/note_repo.dart';
 import 'infrastructure/notes/note_repository.dart';
 import 'application/auth/sign_in_form/bloc/notes/note_watcher/note_watcher_bloc.dart';
@@ -37,6 +38,7 @@ GetIt $initGetIt(
   gh.lazySingleton<AuthRepo>(
       () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
   gh.factory<NoteActorBloc>(() => NoteActorBloc(get<NoteRepo>()));
+  gh.factory<NoteFormBloc>(() => NoteFormBloc(get<NoteRepo>()));
   gh.factory<SignInFormBloc>(() => SignInFormBloc(get<AuthRepo>()));
   gh.factory<AuthBloc>(() => AuthBloc(get<AuthRepo>()));
   return get;
