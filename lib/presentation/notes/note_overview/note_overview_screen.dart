@@ -3,6 +3,7 @@ import 'package:chingu_blogapp/application/auth/sign_in_form/bloc/auth_bloc.dart
 import 'package:chingu_blogapp/application/auth/sign_in_form/bloc/notes/note_actor/note_actor_bloc.dart';
 import 'package:chingu_blogapp/application/auth/sign_in_form/bloc/notes/note_watcher/note_watcher_bloc.dart';
 import 'package:chingu_blogapp/presentation/routes/router.gr.dart';
+import 'package:chingu_blogapp/presentation/widgets/notes_overview_body.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +68,7 @@ class NoteOverviewScreen extends StatelessWidget {
               ),
             ],
           ),
-          // body: ,
+          body: NotesOverviewBody(),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
             child: const Icon(Icons.add),
