@@ -13,7 +13,7 @@ import 'note_dto.dart';
 
 @LazySingleton(as: NoteRepo)
 class NoteRepository implements NoteRepo {
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
 
   NoteRepository(this._firestore);
 
@@ -25,7 +25,7 @@ class NoteRepository implements NoteRepo {
         .snapshots()
         .map(
           (snapshot) => right<NoteFailure, KtList<NoteEntity>>(snapshot
-              .documents
+              .docs
               .map((doc) => NoteDto.fromFirestore(doc).toDomain())
               .toImmutableList()),
         )
@@ -47,7 +47,7 @@ class NoteRepository implements NoteRepo {
         .orderBy('serverTimeStamp', descending: true)
         .snapshots()
         .map(
-          (snapshot) => snapshot.documents
+          (snapshot) => snapshot.docs
               .map((doc) => NoteDto.fromFirestore(doc).toDomain()),
         )
         .map(
@@ -75,8 +75,8 @@ class NoteRepository implements NoteRepo {
       final userDoc = await _firestore.userDocument();
       final noteDto = NoteDto.fromDomain(note);
       await userDoc.noteCollection
-          .document(noteDto.id)
-          .setData(noteDto.toJson());
+          .doc(noteDto.id)
+          .set(noteDto.toJson());
 
       return right(unit);
     } on PlatformException catch (e) {
@@ -94,8 +94,8 @@ class NoteRepository implements NoteRepo {
       final userDoc = await _firestore.userDocument();
       final noteDto = NoteDto.fromDomain(note);
       await userDoc.noteCollection
-          .document(noteDto.id)
-          .updateData(noteDto.toJson());
+          .doc(noteDto.id)
+          .update(noteDto.toJson());
 
       return right(unit);
     } on PlatformException catch (e) {
@@ -114,7 +114,7 @@ class NoteRepository implements NoteRepo {
     try {
       final userDoc = await _firestore.userDocument();
       final noteId = note.id.getOrCrash();
-      await userDoc.noteCollection.document(noteId).delete();
+      await userDoc.noteCollection.doc(noteId).delete();
 
       return right(unit);
     } on PlatformException catch (e) {

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:chingu_blogapp/application/auth/sign_in_form/bloc/notes/note_actor/note_actor_bloc.dart';
 import 'package:chingu_blogapp/domain/notes/note_entity.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +19,8 @@ class NoteCard extends StatelessWidget {
       child: InkWell(
         onTap: () {},
         onLongPress: () {
-          final noteActor = context.read<NoteActorBloc>();
-          _showDeletionDialog(context, noteActor);
+          // final noteActor = context.read<NoteActorBloc>();
+          // _showDeletionDialog(context, noteActor);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

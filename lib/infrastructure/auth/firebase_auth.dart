@@ -3,7 +3,7 @@ import 'package:chingu_blogapp/domain/auth/auth_repo.dart';
 import 'package:chingu_blogapp/domain/auth/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chingu_blogapp/domain/auth/value_objects.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -64,7 +64,7 @@ class FirebaseAuthFacade implements AuthRepo {
         return left(const AuthFailure.cancelledByUser());
       }
       final googleAuth = await googleUser.authentication;
-      final googleCredential = GoogleAuthProvider.getCredential(
+      final googleCredential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
@@ -76,9 +76,8 @@ class FirebaseAuthFacade implements AuthRepo {
   }
 
   @override
-  Future<Option<User>> getSignedInUser() => _firebaseAuth
-      .currentUser()
-      .then((firebaseUser) => optionOf(firebaseUser?.toDomain()));
+  Future<Option<User>> getSignedInUser() async =>
+      optionOf(_firebaseAuth.currentUser?.toDomain());
 
   @override
   Future<void> signOut() => Future.wait([

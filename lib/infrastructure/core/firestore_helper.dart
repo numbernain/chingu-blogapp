@@ -4,13 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../injection.dart';
 
-extension FirestoreX on Firestore {
+extension FirestoreX on FirebaseFirestore {
   Future<DocumentReference> userDocument() async {
     final userOption = await getIt<FirebaseAuthFacade>().getSignedInUser();
     final user = userOption.getOrElse(() => throw UnauthenticatedError());
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection('users')
-        .document(user.id.getOrCrash());
+        .doc(user.id.getOrCrash());
   }
 }
 
