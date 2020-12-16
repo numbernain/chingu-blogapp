@@ -26,7 +26,7 @@ class FirebaseAuthFacade implements AuthRepo {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: emailStr, password: passwordStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
         return left(const AuthFailure.emailAlreadyUsed());
       } else {
@@ -46,7 +46,7 @@ class FirebaseAuthFacade implements AuthRepo {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: emailStr, password: passwordStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_WRONG_PASSWORD' ||
           e.code == 'ERROR_USER_NOT_FOUND') {
         return left(const AuthFailure.invalidEmailAndPassword());
@@ -70,7 +70,7 @@ class FirebaseAuthFacade implements AuthRepo {
       );
       await _firebaseAuth.signInWithCredential(googleCredential);
       return right(unit);
-    } on PlatformException catch (_) {
+    } on FirebaseAuthException catch (_) {
       return left(const AuthFailure.serverError());
     }
   }

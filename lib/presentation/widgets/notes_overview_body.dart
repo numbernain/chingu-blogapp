@@ -12,16 +12,17 @@ class NotesOverviewBody extends StatelessWidget {
       builder: (context, state) {
         return state.map(
           initial: (_) => Container(),
-          loadInProgress: (_) =>
-              const Center(child: CircularProgressIndicator()),
+          loadInProgress: (_) => const Center(
+            child: CircularProgressIndicator(),
+          ),
           loadSuccess: (state) {
             return ListView.builder(
               itemBuilder: (context, index) {
-                final notes = state.notes[index];
-                if (notes.failureOption.isSome()) {
-                  return ErrorNoteCard(note: notes);
+                final note = state.notes[index];
+                if (note.failureOption.isSome()) {
+                  return ErrorNoteCard(note: note);
                 } else {
-                  return NoteCard(note: notes);
+                  return NoteCard(note: note);
                 }
               },
               itemCount: state.notes.size,
